@@ -36,5 +36,14 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis:alpine
+    hostname: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
 volumes:
   ceramic_go_db_data:
+  redis_data:

@@ -1,11 +1,6 @@
 import os
 from pathlib import Path
 
-# region CONSTANTS
-REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
-REDIS_PORT = os.getenv('REDIS_PORT', 6379)
-# endregion
-
 # region DJANGO CORE SETTINGS
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -19,7 +14,8 @@ DJANGO = [
 ]
 APPS = [
     'apps.users',
-    'apps.products'
+    'apps.products',
+    'apps.bot'
 ]
 LIBS = [
 ]
@@ -102,5 +98,9 @@ CSRF_TRUSTED_ORIGINS = os.getenv(
     'CSRF_TRUSTED_ORIGINS', 'http://localhost'
 ).split(' ')
 # endregion
+
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')
+REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+REDIS_PORT = os.getenv('REDIS_PORT', 6379)
 
 # endregion
