@@ -3,6 +3,7 @@ from django.conf import settings
 from telebot.custom_filters import StateFilter
 
 from telebot.storage import StateRedisStorage
+from telebot.types import BotCommand
 
 bot = telebot.TeleBot(
     settings.TG_BOT_TOKEN,
@@ -13,3 +14,7 @@ bot = telebot.TeleBot(
     )
 )
 bot.add_custom_filter(StateFilter(bot))
+bot.set_my_commands([
+    BotCommand("start", "Перезагрузить"),
+    BotCommand("menu", "Меню"),
+])
