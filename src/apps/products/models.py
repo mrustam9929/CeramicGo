@@ -50,6 +50,7 @@ class ProductInventoryOperation(models.Model):
     count = models.SmallIntegerField(default=0, verbose_name='Кол-во')
     operation_type = models.CharField(max_length=50, choices=OperationType.choices, db_index=True, verbose_name='Тип')
     price = models.DecimalField(decimal_places=0, max_digits=10, verbose_name='Цена')
+    user_name = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
 
@@ -58,3 +59,8 @@ class ProductInventoryOperation(models.Model):
         ordering = ('-created_at',)
         verbose_name = 'Учет товара'
         verbose_name_plural = 'Учет товаров'
+    
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.user_name = self.user.username
+        super().save(*args, **kwargs)
