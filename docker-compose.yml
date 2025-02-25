@@ -1,49 +1,63 @@
 version: "3.7"
 
 services:
-  #  backend:
-  #    build:
-  #      context: .
-  #      dockerfile: deploy/docker/backend/Dockerfile
-  #    image: ceramic-go/backend:latest
-  #    restart: unless-stopped
-  #    command: >
-  #      sh -c "python manage.py collectstatic --noinput &&
-  #             python manage.py migrate &&
-  #             python manage.py runserver 0.0.0.0:8000"
-  #    ports:
-  #      - "8000:8000"
-  #    depends_on:
-  #      - db
-  #    env_file:
-  #      - .env
-  #    volumes:
-  #      - backend_data:/src
-  #      - backend_logs:/src/logs
-  #      - backend_static:/src/static
-  #      - backend_media:/src/media
+  backend:
+    build:
+      context: .
+      dockerfile: deploy/docker/backend/Dockerfile
+    image: ceramic-go/backend:latest
+    restart: unless-stopped
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             gunicorn core.wsgi -b 0.0.0.0:8000 --reload"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - ./src:/src
+      - ./mounts/src/logs:/src/logs
+      - ./mounts/src/static:/src/static
+      - ./mounts/src/media:/src/media
+    cap_add:
+      - ALL
 
   db:
     build:
       context: .
       dockerfile: deploy/docker/postgres/Dockerfile
-    image: ceramic-go/postgres:latest
+    image: ceramic-go/db:latest
     restart: unless-stopped
     volumes:
-      - ceramic_go_db_data:/var/lib/postgresql/data
+      - ./mounts/db/pg_data:/var/lib/postgresql/data
+      - ./mounts/db/backups:/backups
+      - ./mounts/db/logs:/var/log/postgresql
     env_file:
       - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
 
   redis:
-    image: redis:alpine
-    hostname: redis
-    ports:
-      - "6379:6379"
+    build:
+      context: .
+      dockerfile: deploy/docker/redis/Dockerfile
+    image: crmchat/redis:latest
+    restart: unless-stopped
+    privileged: true
+    env_file:
+      - .env
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - redis_data:/data
-
-volumes:
-  ceramic_go_db_data:
-  redis_data:
+      - ./mounts/redis/data:/data
+      - ./mounts/redis/conf:/conf
+    ports:
+      - ${REDIS_PORT:-6379}:6379

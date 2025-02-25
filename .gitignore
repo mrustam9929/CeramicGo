@@ -6,6 +6,9 @@ export_data/
 .LSOverride
 mounts/
 mounts/*/*
+src/static/
+src/media/
+src/logs/
 
 # Icon must end with two \r
 Icon
