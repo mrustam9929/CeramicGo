@@ -1,4 +1,3 @@
-from PIL.ImageCms import buildProofTransform
 from django.db.models import QuerySet
 
 from apps.bot.keyboards import BotButton

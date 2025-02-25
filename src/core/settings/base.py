@@ -100,6 +100,7 @@ CSRF_TRUSTED_ORIGINS = os.getenv(
 # endregion
 
 TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')
+TG_WEBHOOK_URL = os.getenv('TG_WEBHOOK_URL')
 REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
 REDIS_PORT = os.getenv('REDIS_PORT', 6379)
 

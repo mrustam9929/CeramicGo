@@ -1,12 +1,14 @@
-from django.contrib import admin
-from django.urls import path, include, re_path
-from django.conf.urls.static import static
 from django.conf import settings
-
+from django.conf.urls.static import static
+from django.contrib import admin
 from django.contrib.auth.models import Group
+from django.urls import path
+
+from apps.bot.webhook import webhook as tg_webhook
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('tg-webhook/', tg_webhook)
 ]
 
 # SWAGGER SCHEMES
