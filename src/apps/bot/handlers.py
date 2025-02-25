@@ -101,7 +101,7 @@ def create_product(message):
         bot.set_state(message.chat.id, AuthStates.username)
         return
     name = message.text
-    if not BotHelper.check_product(name):
+    if BotHelper.check_product(name):
         bot.send_message(message.chat.id, 'Товар уже существует', reply_markup=get_menu_keyboard())
     else:
         BotHelper.create_product(name)
