@@ -19,10 +19,9 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src:/src
-      - ./mounts/src/logs:/src/logs:rw
-      - ./mounts/src/static:/src/static:rw
-      - ./mounts/src/media:/src/media:rw
+      - backend_static:/src/static
+      - backend_media:/src/media
+      - backend_logs:/src/logs
     cap_add:
       - ALL
 
@@ -33,9 +32,9 @@ services:
     image: ceramic-go/db:latest
     restart: unless-stopped
     volumes:
-      - ./mounts/db/pg_data:/var/lib/postgresql/data
-      - ./mounts/db/backups:/backups
-      - ./mounts/db/logs:/var/log/postgresql
+      - db_data:/var/lib/postgresql/data
+      - db_backups:/backups
+      - db_logs:/var/log/postgresql
     env_file:
       - .env
     environment:
@@ -57,7 +56,17 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - ./mounts/redis/data:/data
-      - ./mounts/redis/conf:/conf
+      - redis_data:/data
+      - redis_conf:/conf
     ports:
       - ${REDIS_PORT:-6379}:6379
+
+volumes:
+  backend_media:
+  backend_logs:
+  backend_static:
+  db_data:
+  db_backups:
+  db_logs:
+  redis_data:
+  redis_conf:
