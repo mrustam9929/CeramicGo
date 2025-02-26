@@ -20,9 +20,9 @@ services:
       - .env
     volumes:
       - ./src:/src
-      - ./mounts/src/logs:/src/logs:ro
-      - ./mounts/src/static:/src/static:ro
-      - ./mounts/src/media:/src/media:ro
+      - ./mounts/src/logs:/src/logs:rw
+      - ./mounts/src/static:/src/static:rw
+      - ./mounts/src/media:/src/media:rw
     cap_add:
       - ALL
 
