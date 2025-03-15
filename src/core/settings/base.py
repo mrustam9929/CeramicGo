@@ -4,6 +4,7 @@ from pathlib import Path
 # region DJANGO CORE SETTINGS
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
 DJANGO = [
     'django.contrib.admin',
     'django.contrib.auth',
