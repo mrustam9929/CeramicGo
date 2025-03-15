@@ -3,9 +3,8 @@ import os
 
 from core.settings.base import *
 
-SECRET_KEY = 'xxx'
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = bool(os.getenv('DEBUG', 1))
 
 MEDIA_URL = "/media/"
 STATIC_URL = '/static/'

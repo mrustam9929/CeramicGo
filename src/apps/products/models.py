@@ -59,8 +59,14 @@ class ProductInventoryOperation(models.Model):
         ordering = ('-created_at',)
         verbose_name = 'Учет товара'
         verbose_name_plural = 'Учет товаров'
-    
+
     def save(self, *args, **kwargs):
         if self.pk is None:
             self.user_name = self.user.username
         super().save(*args, **kwargs)
+
+
+class Release(models.Model):
+    pk = models.CompositePrimaryKey("version", "name")
+    version = models.IntegerField()
+    name = models.CharField(max_length=20)

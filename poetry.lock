@@ -153,17 +153,17 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.1.6"
+version = "5.2b1"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.1.6-py3-none-any.whl", hash = "sha256:8d203400bc2952fbfb287c2bbda630297d654920c72a73cc82a9ad7926feaad5"},
-    {file = "Django-5.1.6.tar.gz", hash = "sha256:1e39eafdd1b185e761d9fab7a9f0b9fa00af1b37b25ad980a8aa0dac13535690"},
+    {file = "Django-5.2b1-py3-none-any.whl", hash = "sha256:ec33b0b3846d145a95d84a1ffea29f64ce4fc73ba755d9a6ab35128f354b750a"},
+    {file = "Django-5.2b1.tar.gz", hash = "sha256:55c764c5990759ee97ba60ac1ce17092e91e445be1d0a83e88b754835c4bb564"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.8.1,<4"
+asgiref = ">=3.8.1"
 sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
@@ -492,4 +492,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "81a05d31efc8f0771ec01d63ccfa43a737eb208e10e2c9890a291c208f35fb14"
+content-hash = "ab81a8483d0c699a60c2684330da2adfa84b0ed16c0c97492fc3deed154cf18f"
