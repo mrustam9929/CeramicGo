@@ -63,3 +63,6 @@ volumes:
   db_data:
   redis_data:
   redis_conf:
+  backend_static:
+  backend_logs:
+  backend_media:
